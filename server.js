@@ -7,7 +7,22 @@ const server = http.createServer((req , res)=>{
     res.setHeader('Content-Type', 'text/html');
     // res.write('<h1>Hello Everyone</h1>');
     // res.write('<h2>How are you :)</h2>');
-    fs.readFile("./views/index.html" , (err , fileData)=>{
+
+    let path = "./views";
+    switch(req.url){
+        case '/' :
+            path += "/index.html";
+            break;
+        case "/about":
+            path += "/about.html";
+            break;
+        default:
+            path += "/404.html";
+            break;
+
+
+    }
+    fs.readFile(path , (err , fileData)=>{
         if(err){
             console.log(err);
             res.end();
